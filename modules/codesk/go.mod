@@ -1,4 +1,4 @@
-module github.com/encodeering/wsl/proxy
+module github.com/encodeering/wsl/codesk
 
 require (
 	github.com/gobuffalo/packr/v2 v2.0.0-rc.14

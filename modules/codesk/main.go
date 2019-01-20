@@ -1,7 +1,7 @@
 package main
 
 import (
-    "github.com/encodeering/wsl/proxy/internal/cmd"
+    "github.com/encodeering/wsl/codesk/internal/cmd"
 )
 
 //go:generate tar -C glue -czvf ./internal/stick/res/glue.tar.gz .

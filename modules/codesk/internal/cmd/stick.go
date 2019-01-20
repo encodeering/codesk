@@ -5,7 +5,7 @@ import (
     "os"
     "os/exec"
     "strings"
-    "github.com/encodeering/wsl/proxy/internal/stick"
+    "github.com/encodeering/wsl/codesk/internal/stick"
     "github.com/spf13/cobra"
 )
 

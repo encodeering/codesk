@@ -6,8 +6,8 @@ import (
 )
 
 var root = &cobra.Command {
-    Use: `proxy`,
-    Short: `a tool for wsl proxy generation`,
+    Use: `codesk`,
+    Short: `a tool for windows/linux desk operations using wsl`,
     Run: func (_ *cobra.Command, _ []string) {},
 }
 
