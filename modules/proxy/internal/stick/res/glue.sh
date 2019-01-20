@@ -7,13 +7,11 @@ alias docker=docker.exe
 set -x -euo pipefail
 
 {
-    cwd=`dirname "${BASH_SOURCE}"`
-
     target="${1}"
     output="wsl-${target}.exe"
     tag="wsl-proxy:${target}"
 
-    docker build -t "${tag}" --build-arg TARGET="${target}" "${cwd}"
+    docker build -t "${tag}" --build-arg TARGET="${target}" -
 } > /dev/null
 
 cid=$(docker create "${tag}")

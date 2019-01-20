@@ -4,7 +4,7 @@ import (
     "github.com/gobuffalo/packr/v2"
 )
 
-type Handle func ([]byte) error
+type Handle func ([]byte, []byte) error
 
 type Stick interface {
     Process () error
@@ -23,11 +23,15 @@ func New (handle Handle) Stick {
 }
 
 func (s *stick) Process () (err error) {
+    var script []byte
     var fs []byte
 
+    if script, err = s.box.Find ("glue.sh"); err != nil {
+        return
+    }
     if fs, err = s.box.Find ("glue.tar.gz"); err != nil {
         return
     }
 
-    return s.handle (fs)
+    return s.handle (script, fs)
 }

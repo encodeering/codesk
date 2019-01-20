@@ -7,7 +7,11 @@ import (
 )
 
 func TestStickProcess (t * testing.T) {
-    err := New (func (fs []byte) error {
+    err := New (func (script []byte, fs []byte) error {
+        gluesh, err := ioutil.ReadFile ("res/glue.sh")
+        assert.NoError (t, err)
+        assert.Equal (t, gluesh, script)
+
         gluetar, err := ioutil.ReadFile ("res/glue.tar.gz")
         assert.NoError (t, err)
         assert.Equal (t, gluetar, fs)
