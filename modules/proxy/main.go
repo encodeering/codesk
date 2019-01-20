@@ -4,6 +4,8 @@ import (
     "os"
 )
 
+//go:generate tar -C glue -czvf ./internal/stick/res/glue.tar.gz .
+
 func main() {
     die (nil)
 }

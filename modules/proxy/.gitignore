@@ -1,0 +1,4 @@
+packrd/
+
+internal/**/*.tar.gz
+internal/**/*-packr.go
