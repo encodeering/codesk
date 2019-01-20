@@ -2,7 +2,7 @@ package main
 
 import (
     "os"
-    "github.com/encodeering/wsl/proxy/internal/process"
+    "github.com/encodeering/wsl/glue/internal/process"
 )
 
 var target string
