@@ -4,6 +4,7 @@ import (
     "io"
     "io/ioutil"
     "os"
+    "strings"
     "testing"
     "github.com/stretchr/testify/assert"
 )
@@ -29,6 +30,21 @@ func TestExecFail (t *testing.T) {
 
         assert.NoError (t, err)
         assert.Equal   (t, "", string (content)) // stderr still empty ?
+    })
+}
+
+func TestExecParentEnv (t *testing.T) {
+    os.Setenv ("TESTVAR", "42")
+
+    capture (t, func (r io.Reader, w io.WriteCloser, _ io.Reader, _ io.WriteCloser) {
+        assert.Equal   (t, 0, Exec ("printenv", []string{}))
+        assert.NoError (t, w.Close ())
+
+        content, err := ioutil.ReadAll (r)
+
+        assert.NoError (t, err)
+        assert.Equal   (t, strings.Join (os.Environ (), "\n") + "\n", string (content))
+        assert.True    (t, strings.Contains (string (content), "TESTVAR=42"))
     })
 }
 
