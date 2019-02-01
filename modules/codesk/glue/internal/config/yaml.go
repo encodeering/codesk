@@ -7,10 +7,11 @@ import (
 )
 
 func (e* Environment) UnmarshalYAML (unmarshal func (interface{}) error) (err error) {
-    type   typeclone Environment
-    raw := typeclone {
+    raw := struct {
+        Resolution Resolution `yaml:"resolution"`
+        Var []string `yaml:"var"`
+    }{
         Resolution : e.Resolution,
-        Var        : e.Var,
     }
 
     if err = unmarshal (& raw); err != nil {
@@ -21,11 +22,15 @@ func (e* Environment) UnmarshalYAML (unmarshal func (interface{}) error) (err er
         return
     }
 
-    if err = CheckEnvvars (raw.Var); err != nil {
+    var wslvars []WslVar
+    if  wslvars, err = ConvertEnvvars (raw.Var); err != nil {
         return
     }
 
-    *e = Environment (raw)
+    *e = Environment {
+        Resolution: raw.Resolution,
+        Var: wslvars,
+    }
 
     return
 }

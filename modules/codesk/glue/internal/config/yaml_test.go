@@ -19,7 +19,7 @@ func TestYamlReadFull (t *testing.T) {
     assert.Equal (t, "encodeering", config.Box.User.Name)
     assert.Equal (t, "debian", config.Box.Distribution.Name)
 
-    assert.Equal (t, []string{"ANSWER==42", "LIFE=pu=42"}, config.Command.Environment.Var)
+    assert.Equal (t, []WslVar{ DefaultWslVar ("ANSWER", "", "42"), DefaultWslVar ("LIFE", "pu", "42") }, config.Command.Environment.Var)
     assert.Equal (t, Resolution("parent"), config.Command.Environment.Resolution)
 }
 
@@ -30,7 +30,7 @@ func TestYamlReadEnvNoResolution (t *testing.T) {
     assert.Equal (t, "encodeering", config.Box.User.Name)
     assert.Equal (t, "debian", config.Box.Distribution.Name)
 
-    assert.Equal (t, []string{"ANSWER==42", "LIFE=pu=42"}, config.Command.Environment.Var)
+    assert.Equal (t, []WslVar{ DefaultWslVar ("ANSWER", "", "42"), DefaultWslVar ("LIFE", "pu", "42") }, config.Command.Environment.Var)
     assert.Equal (t, Resolution("last"), config.Command.Environment.Resolution)
 }
 
@@ -47,7 +47,7 @@ func TestYamlReadEnvNoVar (t *testing.T) {
     assert.Equal (t, "encodeering", config.Box.User.Name)
     assert.Equal (t, "debian", config.Box.Distribution.Name)
 
-    assert.Equal (t, []string(nil), config.Command.Environment.Var)
+    assert.Equal (t, []WslVar(nil), config.Command.Environment.Var)
     assert.Equal (t, Resolution("parent"), config.Command.Environment.Resolution)
 }
 
@@ -64,6 +64,6 @@ func TestYamlReadNothing (t *testing.T) {
     assert.Equal (t, "", config.Box.User.Name)
     assert.Equal (t, "", config.Box.Distribution.Name)
 
-    assert.Equal (t, []string(nil), config.Command.Environment.Var)
+    assert.Equal (t, []WslVar(nil), config.Command.Environment.Var)
     assert.Equal (t, Resolution("last"), config.Command.Environment.Resolution)
 }

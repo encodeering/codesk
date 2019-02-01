@@ -16,7 +16,7 @@ func TestOSPrefix (t *testing.T) {
     config, err := ObtainOS ("CODESK")
     assert.NoError (t, err)
 
-    assert.Equal (t, []string{"ANSWER==42", "LIFE=pu=42"}, config.Command.Environment.Var)
+    assert.Equal (t, []WslVar{ DefaultWslVar ("ANSWER", "", "42"), DefaultWslVar ("LIFE", "pu", "42") }, config.Command.Environment.Var)
 }
 
 func TestOSEnvInvalid (t *testing.T) {

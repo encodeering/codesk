@@ -35,7 +35,7 @@ type WslVar struct {
 
 type Environment struct {
     Resolution Resolution `yaml:"resolution"`
-    Var []string `yaml:"var"`
+    Var []WslVar
 }
 
 type Command struct {
@@ -75,23 +75,8 @@ func CheckResolution (resolution Resolution) error {
 }
 
 func CheckEnvvar (envvar string) (err error) {
-    var matches bool
-    if  matches, err = regexp.Match ("^([^=]+)=([wulp]*)=(.*?)$", []byte (envvar)); err != nil {
-        return
-    }
-
-    if ! matches {
+    if matches := splitter.envvar.MatchString (envvar); ! matches {
         return errors.New (fmt.Sprintf ("envvar value '%v' doesn't match pattern NAME=[wulp]=VALUE", envvar))
-    }
-
-    return
-}
-
-func CheckEnvvars (envvars []string) (err error) {
-    for _, e := range envvars {
-        if err = CheckEnvvar (e); err != nil {
-            return
-        }
     }
 
     return

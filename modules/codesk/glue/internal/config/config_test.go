@@ -33,13 +33,6 @@ func TestCheckEnvvar (t *testing.T) {
     assert.EqualError (t, CheckEnvvar ("ANSWER=42"), "envvar value 'ANSWER=42' doesn't match pattern NAME=[wulp]=VALUE")
 }
 
-func TestCheckEnvvars (t *testing.T) {
-    assert.NoError (t, CheckEnvvars ([]string{}))
-    assert.NoError (t, CheckEnvvars ([]string{"ANSWER==42", "LIFE=pu=42"}))
-
-    assert.EqualError (t, CheckEnvvars ([]string{"LIFE=x=42"}), "envvar value 'LIFE=x=42' doesn't match pattern NAME=[wulp]=VALUE")
-}
-
 func TestConvertEnvvar (t *testing.T) {
     wslvar, err := ConvertEnvvar ("ANSWER==42")
     assert.NoError (t, err)

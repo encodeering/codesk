@@ -10,15 +10,17 @@ func ObtainOS (prefix string) (config *Config, err error) {
 
     config = DefaultConfig ()
 
+    candidates := make ([]string, 0)
+
     for _, e := range os.Environ () {
         if ! strings.HasPrefix (e, lookup) {
             continue
         }
 
-        config.Command.Environment.Var = append (config.Command.Environment.Var, strings.Replace (e, lookup, "", 1))
+        candidates = append (candidates, strings.Replace (e, lookup, "", 1))
     }
 
-    if err = CheckEnvvars (config.Command.Environment.Var); err != nil {
+    if  config.Command.Environment.Var, err = ConvertEnvvars (candidates); err != nil {
         config = nil
     }
 
