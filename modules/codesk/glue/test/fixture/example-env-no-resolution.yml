@@ -1,0 +1,12 @@
+box:
+  distribution:
+    name: debian
+  user:
+    name: encodeering
+
+command:
+  environment:
+    var: [
+      "ANSWER==42",
+      "LIFE=pu=42",
+    ]

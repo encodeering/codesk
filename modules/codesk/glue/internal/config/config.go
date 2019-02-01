@@ -9,30 +9,30 @@ import (
 type Resolution string
 
 type Distribution struct {
-    Name string
+    Name string `yaml:"name,omitempty"`
 }
 
 type User struct {
-    Name string
+    Name string `yaml:"name,omitempty"`
 }
 
 type Box struct {
-    Distribution Distribution
-    User User
+    Distribution Distribution `yaml:"distribution"`
+    User User `yaml:"user"`
 }
 
 type Environment struct {
-    Resolution Resolution
-    Var []string
+    Resolution Resolution `yaml:"resolution"`
+    Var []string `yaml:"var"`
 }
 
 type Command struct {
-    Environment Environment
+    Environment Environment `yaml:"environment"`
 }
 
 type Config struct {
-    Box Box
-    Command Command
+    Box Box `yaml:"box"`
+    Command Command `yaml:"command"`
 }
 
 func CheckResolution (resolution Resolution) error {

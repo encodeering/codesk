@@ -1,0 +1,9 @@
+box:
+  distribution:
+    name: debian
+  user:
+    name: encodeering
+
+command:
+  environment:
+    resolution: parent
