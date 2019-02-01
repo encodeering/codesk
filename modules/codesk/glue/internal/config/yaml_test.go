@@ -51,6 +51,12 @@ func TestYamlReadEnvNoVar (t *testing.T) {
     assert.Equal (t, Resolution("parent"), config.Command.Environment.Resolution)
 }
 
+func TestYamlReadEnvInvalid (t *testing.T) {
+    config, err := ObtainYaml ("./test/fixture/example-env-invalid-var.yml")
+    assert.EqualError (t, err, "envvar value 'LIFE=x=42' doesn't match pattern NAME=[wulp]=VALUE")
+    assert.Nil (t, config)
+}
+
 func TestYamlReadNothing (t *testing.T) {
     config, err := ObtainYaml ("./test/fixture/example-nothing.yml")
     assert.NoError (t, err)

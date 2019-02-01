@@ -21,6 +21,10 @@ func (e* Environment) UnmarshalYAML (unmarshal func (interface{}) error) (err er
         return
     }
 
+    if err = CheckEnvvars (raw.Var); err != nil {
+        return
+    }
+
     *e = Environment (raw)
 
     return

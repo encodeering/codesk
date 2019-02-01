@@ -19,6 +19,17 @@ func TestOSPrefix (t *testing.T) {
     assert.Equal (t, []string{"ANSWER==42", "LIFE=pu=42"}, config.Command.Environment.Var)
 }
 
+func TestOSEnvInvalid (t *testing.T) {
+    unsetenv ("CODESK")
+
+    setenv ("CODESK_LIFE", "x", "42")
+
+    config, err := ObtainOS ("CODESK")
+
+    assert.EqualError (t, err, "envvar value 'LIFE=x=42' doesn't match pattern NAME=[wulp]=VALUE")
+    assert.Nil (t, config)
+}
+
 func setenv (key, flag, value string) {
     os.Setenv (key, flag + "=" + value)
 }
