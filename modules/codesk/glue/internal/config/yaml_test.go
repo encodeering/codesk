@@ -9,10 +9,7 @@ func TestYamlNotExist (t *testing.T) {
     config, err := ObtainYaml ("./test/fixture/yaml/_____.yml")
     assert.NoError (t, err)
 
-    expect := &Config {}
-    expect.Command.Environment.Resolution = "last"
-
-    assert.Equal (t, expect, config)
+    assert.Equal (t, DefaultConfig (), config)
 }
 
 func TestYamlReadFull (t *testing.T) {

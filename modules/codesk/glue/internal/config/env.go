@@ -8,8 +8,7 @@ import (
 func ObtainOS (prefix string) (config *Config, err error) {
     lookup :=  prefix + "_"
 
-    config = &Config{}
-    config.Command.Environment.Resolution = "late"
+    config = DefaultConfig ()
 
     for _, e := range os.Environ () {
         if ! strings.HasPrefix (e, lookup) {

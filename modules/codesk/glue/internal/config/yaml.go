@@ -23,8 +23,7 @@ func (e* Environment) UnmarshalYAML (unmarshal func (interface{}) error) (err er
 }
 
 func ObtainYaml (file string) (config *Config, err error) {
-    config = &Config {}
-    config.Command.Environment.Resolution = "last"
+    config = DefaultConfig ()
 
     if _, err = os.Stat (file); err != nil {
         err   = nil

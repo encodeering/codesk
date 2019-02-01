@@ -35,6 +35,13 @@ type Config struct {
     Command Command `yaml:"command"`
 }
 
+func DefaultConfig () (config *Config) {
+    config = &Config {}
+    config.Command.Environment.Resolution = "last"
+
+    return
+}
+
 func CheckResolution (resolution Resolution) error {
     if resolution == "first"  ||
        resolution == "parent" ||
