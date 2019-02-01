@@ -34,7 +34,7 @@ type WslVar struct {
 }
 
 type Environment struct {
-    Resolution Resolution `yaml:"resolution"`
+    Resolution Resolution
     Var []WslVar
 }
 
@@ -62,20 +62,20 @@ func DefaultConfig () (config *Config) {
     return
 }
 
-func CheckResolution (resolution Resolution) error {
-    if resolution == "first"  ||
-       resolution == "parent" ||
-       resolution == "self"   ||
-       resolution == "last" {
+func CheckResolution (item string) error {
+    if item == "first"  ||
+       item == "parent" ||
+       item == "self"   ||
+       item == "last" {
 
         return nil
     }
 
-    return errors.New (fmt.Sprintf ("resolution value '%v' is unknown", resolution))
+    return errors.New (fmt.Sprintf ("resolution value '%v' is unknown", item))
 }
 
 func ConvertResolution (item string) (resolution Resolution, err error) {
-    if err = CheckResolution (Resolution (item)); err != nil {
+    if err = CheckResolution (item); err != nil {
         return
     }
 

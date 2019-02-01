@@ -8,17 +8,18 @@ import (
 
 func (e* Environment) UnmarshalYAML (unmarshal func (interface{}) error) (err error) {
     raw := struct {
-        Resolution Resolution `yaml:"resolution"`
+        Resolution string `yaml:"resolution"`
         Var []string `yaml:"var"`
     }{
-        Resolution : e.Resolution,
+        Resolution : string (e.Resolution),
     }
 
     if err = unmarshal (& raw); err != nil {
         return
     }
 
-    if err = CheckResolution (raw.Resolution); err != nil {
+    var resolution Resolution
+    if  resolution, err = ConvertResolution (raw.Resolution); err != nil {
         return
     }
 
@@ -28,7 +29,7 @@ func (e* Environment) UnmarshalYAML (unmarshal func (interface{}) error) (err er
     }
 
     *e = Environment {
-        Resolution: raw.Resolution,
+        Resolution: resolution,
         Var: wslvars,
     }
 
