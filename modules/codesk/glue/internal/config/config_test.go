@@ -15,6 +15,16 @@ func TestCheckResolution (t *testing.T) {
     assert.EqualError (t, CheckResolution ("barent"), "resolution value 'barent' is unknown")
 }
 
+func TestConvertResolution (t *testing.T) {
+    resolution, err := ConvertResolution ("parent")
+    assert.NoError (t, err)
+    assert.Equal (t, Resolution ("parent"), resolution)
+
+    resolution, err = ConvertResolution ("")
+    assert.EqualError (t, err, "resolution value '' is unknown")
+    assert.Equal (t, Resolution (""), resolution)
+}
+
 func TestCheckEnvvar (t *testing.T) {
     assert.NoError (t, CheckEnvvar ("ANSWER==42"))
     assert.NoError (t, CheckEnvvar ("ANSWER=="))

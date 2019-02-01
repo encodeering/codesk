@@ -74,6 +74,16 @@ func CheckResolution (resolution Resolution) error {
     return errors.New (fmt.Sprintf ("resolution value '%v' is unknown", resolution))
 }
 
+func ConvertResolution (item string) (resolution Resolution, err error) {
+    if err = CheckResolution (Resolution (item)); err != nil {
+        return
+    }
+
+    resolution = Resolution (item)
+
+    return
+}
+
 func CheckEnvvar (envvar string) (err error) {
     if matches := splitter.envvar.MatchString (envvar); ! matches {
         return errors.New (fmt.Sprintf ("envvar value '%v' doesn't match pattern NAME=[wulp]=VALUE", envvar))
