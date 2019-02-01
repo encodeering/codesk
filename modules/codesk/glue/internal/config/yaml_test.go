@@ -34,6 +34,12 @@ func TestYamlReadEnvNoResolution (t *testing.T) {
     assert.Equal (t, Resolution("last"), config.Command.Environment.Resolution)
 }
 
+func TestYamlReadEnvResolutionInvalid (t *testing.T) {
+    config, err := ObtainYaml ("./test/fixture/example-env-invalid-resolution.yml")
+    assert.EqualError (t, err, "resolution value 'whatever' is unknown")
+    assert.Nil (t, config)
+}
+
 func TestYamlReadEnvNoVar (t *testing.T) {
     config, err := ObtainYaml ("./test/fixture/example-env-no-var.yml")
     assert.NoError (t, err)

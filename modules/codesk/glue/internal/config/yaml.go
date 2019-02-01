@@ -17,6 +17,10 @@ func (e* Environment) UnmarshalYAML (unmarshal func (interface{}) error) (err er
         return
     }
 
+    if err = CheckResolution (raw.Resolution); err != nil {
+        return
+    }
+
     *e = Environment (raw)
 
     return
@@ -35,7 +39,9 @@ func ObtainYaml (file string) (config *Config, err error) {
         return
     }
 
-    err = yaml.Unmarshal (b, & config)
+    if err = yaml.Unmarshal (b, & config); err != nil {
+        config = nil
+    }
 
     return
 }
