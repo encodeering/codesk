@@ -6,6 +6,12 @@ import (
     "regexp"
 )
 
+var splitter = struct {
+   envvar *regexp.Regexp
+}{
+   envvar: regexp.MustCompile ("^([^=]+)=([wulp]*)=(.*?)$"),
+}
+
 type Resolution string
 
 type Distribution struct {
@@ -21,6 +27,12 @@ type Box struct {
     User User `yaml:"user"`
 }
 
+type WslVar struct {
+    Key   string
+    Value string
+    Spec  string
+}
+
 type Environment struct {
     Resolution Resolution `yaml:"resolution"`
     Var []string `yaml:"var"`
@@ -33,6 +45,14 @@ type Command struct {
 type Config struct {
     Box Box `yaml:"box"`
     Command Command `yaml:"command"`
+}
+
+func DefaultWslVar (key, spec, value string) WslVar {
+    return WslVar {
+        Key   : key,
+        Spec  : spec,
+        Value : value,
+    }
 }
 
 func DefaultConfig () (config *Config) {
@@ -72,6 +92,30 @@ func CheckEnvvars (envvars []string) (err error) {
         if err = CheckEnvvar (e); err != nil {
             return
         }
+    }
+
+    return
+}
+
+func ConvertEnvvar (envvar string) (wslvar WslVar, err error) {
+    if err = CheckEnvvar (envvar); err != nil {
+        return
+    }
+
+                            match := splitter.envvar.FindStringSubmatch (envvar)
+    wslvar = DefaultWslVar (match[1], match[2], match[3])
+
+    return
+}
+
+func ConvertEnvvars (envvars []string) (wslvars []WslVar, err error) {
+    for _, e := range envvars {
+        var wslvar WslVar
+        if  wslvar, err = ConvertEnvvar (e); err != nil {
+            return
+        }
+
+        wslvars = append (wslvars, wslvar)
     }
 
     return
