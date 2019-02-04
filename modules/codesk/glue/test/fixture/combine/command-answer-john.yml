@@ -1,0 +1,6 @@
+command:
+  environment:
+    var: [
+      "ANSWER==24",
+      "JOHN=pu=42",
+    ]
