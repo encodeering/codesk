@@ -13,7 +13,7 @@ func TestYamlNotExist (t *testing.T) {
 }
 
 func TestYamlReadFull (t *testing.T) {
-    config, err := ObtainYaml ("./test/fixture/example-full.yml")
+    config, err := ObtainYaml ("./test/fixture/yaml/complete.yml")
     assert.NoError (t, err)
 
     assert.Equal (t, "encodeering", config.Box.User.Name)
@@ -24,7 +24,7 @@ func TestYamlReadFull (t *testing.T) {
 }
 
 func TestYamlReadEnvNoResolution (t *testing.T) {
-    config, err := ObtainYaml ("./test/fixture/example-env-no-resolution.yml")
+    config, err := ObtainYaml ("./test/fixture/yaml/complete-env-no-resolution.yml")
     assert.NoError (t, err)
 
     assert.Equal (t, "encodeering", config.Box.User.Name)
@@ -35,13 +35,13 @@ func TestYamlReadEnvNoResolution (t *testing.T) {
 }
 
 func TestYamlReadEnvResolutionInvalid (t *testing.T) {
-    config, err := ObtainYaml ("./test/fixture/example-env-invalid-resolution.yml")
+    config, err := ObtainYaml ("./test/fixture/yaml/complete-env-invalid-resolution.yml")
     assert.EqualError (t, err, "resolution value 'whatever' is unknown")
     assert.Nil (t, config)
 }
 
 func TestYamlReadEnvNoVar (t *testing.T) {
-    config, err := ObtainYaml ("./test/fixture/example-env-no-var.yml")
+    config, err := ObtainYaml ("./test/fixture/yaml/complete-env-no-var.yml")
     assert.NoError (t, err)
 
     assert.Equal (t, "encodeering", config.Box.User.Name)
@@ -52,13 +52,13 @@ func TestYamlReadEnvNoVar (t *testing.T) {
 }
 
 func TestYamlReadEnvInvalid (t *testing.T) {
-    config, err := ObtainYaml ("./test/fixture/example-env-invalid-var.yml")
+    config, err := ObtainYaml ("./test/fixture/yaml/complete-env-invalid-var.yml")
     assert.EqualError (t, err, "envvar value 'LIFE=x=42' doesn't match pattern NAME=[wulp]=VALUE")
     assert.Nil (t, config)
 }
 
 func TestYamlReadNothing (t *testing.T) {
-    config, err := ObtainYaml ("./test/fixture/example-nothing.yml")
+    config, err := ObtainYaml ("./test/fixture/yaml/nothing.yml")
     assert.NoError (t, err)
 
     assert.Equal (t, "", config.Box.User.Name)
