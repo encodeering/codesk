@@ -7,20 +7,19 @@ import (
     . "github.com/encodeering/wsl/glue/internal/util"
 )
 
-var Pwd string
-var Uhd string
-
-func init () {
+func Pwd () string {
     executable, err := os.Executable ()
     Die (err)
 
     path, err := filepath.EvalSymlinks (executable)
     Die (err)
 
-    Pwd = filepath.Dir (path)
+    return filepath.Dir (path)
+}
 
+func Uhd () string {
     user, err := user.Current ()
     Die (err)
 
-    Uhd = user.HomeDir
+    return user.HomeDir
 }

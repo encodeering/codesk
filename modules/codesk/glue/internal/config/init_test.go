@@ -16,12 +16,12 @@ func TestConfigProcessWorkingDirectory (t *testing.T) {
     resolved, err := filepath.EvalSymlinks (executable)
     assert.NoError (t, err)
 
-    assert.Equal (t, filepath.Dir (resolved), Pwd)
+    assert.Equal (t, filepath.Dir (resolved), Pwd ())
 }
 
 func TestConfigUserHomeDirectory (t *testing.T) {
     user, err := user.Current ()
     assert.NoError (t, err)
 
-    assert.Equal (t, user.HomeDir, Uhd)
+    assert.Equal (t, user.HomeDir, Uhd ())
 }
