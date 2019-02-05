@@ -11,7 +11,7 @@ import (
 
 func TestExecOkay (t *testing.T) {
     capture (t, func (r io.Reader, w io.WriteCloser, _ io.Reader, _ io.WriteCloser) {
-        assert.Equal   (t, 0, Exec ("echo", []string{"-n", "hello"}))
+        assert.Equal   (t, 0, NewProxy ("echo").Exec ([]string{"-n", "hello"}))
         assert.NoError (t, w.Close ())
 
         content, err := ioutil.ReadAll (r)
@@ -23,7 +23,7 @@ func TestExecOkay (t *testing.T) {
 
 func TestExecFail (t *testing.T) {
     capture (t, func (_ io.Reader, _ io.WriteCloser, r io.Reader, w io.WriteCloser) {
-        assert.Equal   (t, 1, Exec ("echosounder", []string{"-n", "hello"}))
+        assert.Equal   (t, 1, NewProxy ("echosounder").Exec ([]string{"-n", "hello"}))
         assert.NoError (t, w.Close ())
 
         content, err := ioutil.ReadAll (r)
@@ -37,7 +37,7 @@ func TestExecParentEnv (t *testing.T) {
     os.Setenv ("TESTVAR", "42")
 
     capture (t, func (r io.Reader, w io.WriteCloser, _ io.Reader, _ io.WriteCloser) {
-        assert.Equal   (t, 0, Exec ("printenv", []string{}))
+        assert.Equal   (t, 0, NewProxy ("printenv").Exec ([]string{}))
         assert.NoError (t, w.Close ())
 
         content, err := ioutil.ReadAll (r)

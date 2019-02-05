@@ -6,8 +6,22 @@ import (
     "syscall"
 )
 
-func Exec (binary string, args []string) (code int) {
-    cmd := exec.Command (binary, args...)
+type Proxy interface {
+    Exec (args []string) int
+}
+
+func NewProxy (binary string) Proxy {
+    return &proxy {
+        binary: binary,
+    }
+}
+
+type proxy struct {
+    binary string
+}
+
+func (p *proxy) Exec (args []string) (code int) {
+    cmd := exec.Command (p.binary, args...)
     cmd.Stdin  = os.Stdin
     cmd.Stdout = os.Stdout
     cmd.Stderr = os.Stderr
