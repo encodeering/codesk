@@ -4,20 +4,23 @@ import (
     "os"
     "os/exec"
     "syscall"
+    "github.com/encodeering/wsl/glue/internal/config"
 )
 
 type Proxy interface {
     Exec (args []string) int
 }
 
-func NewProxy (binary string) Proxy {
+func NewProxy (binary string, config *config.Config) Proxy {
     return &proxy {
         binary: binary,
+        config: config,
     }
 }
 
 type proxy struct {
     binary string
+    config *config.Config
 }
 
 func (p *proxy) Exec (args []string) (code int) {

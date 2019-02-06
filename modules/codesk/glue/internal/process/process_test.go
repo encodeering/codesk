@@ -7,11 +7,14 @@ import (
     "strings"
     "testing"
     "github.com/stretchr/testify/assert"
+    "github.com/encodeering/wsl/glue/internal/config"
 )
 
 func TestExecOkay (t *testing.T) {
+    config := config.DefaultConfig ()
+
     capture (t, func (r io.Reader, w io.WriteCloser, _ io.Reader, _ io.WriteCloser) {
-        assert.Equal   (t, 0, NewProxy ("echo").Exec ([]string{"-n", "hello"}))
+        assert.Equal   (t, 0, NewProxy ("echo", config).Exec ([]string{"-n", "hello"}))
         assert.NoError (t, w.Close ())
 
         content, err := ioutil.ReadAll (r)
@@ -22,8 +25,10 @@ func TestExecOkay (t *testing.T) {
 }
 
 func TestExecFail (t *testing.T) {
+    config := config.DefaultConfig ()
+
     capture (t, func (_ io.Reader, _ io.WriteCloser, r io.Reader, w io.WriteCloser) {
-        assert.Equal   (t, 1, NewProxy ("echosounder").Exec ([]string{"-n", "hello"}))
+        assert.Equal   (t, 1, NewProxy ("echosounder", config).Exec ([]string{"-n", "hello"}))
         assert.NoError (t, w.Close ())
 
         content, err := ioutil.ReadAll (r)
@@ -34,10 +39,12 @@ func TestExecFail (t *testing.T) {
 }
 
 func TestExecParentEnv (t *testing.T) {
+    config := config.DefaultConfig ()
+
     os.Setenv ("TESTVAR", "42")
 
     capture (t, func (r io.Reader, w io.WriteCloser, _ io.Reader, _ io.WriteCloser) {
-        assert.Equal   (t, 0, NewProxy ("printenv").Exec ([]string{}))
+        assert.Equal   (t, 0, NewProxy ("printenv", config).Exec ([]string{}))
         assert.NoError (t, w.Close ())
 
         content, err := ioutil.ReadAll (r)
