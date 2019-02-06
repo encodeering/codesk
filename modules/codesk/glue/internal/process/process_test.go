@@ -8,6 +8,7 @@ import (
     "testing"
     "github.com/stretchr/testify/assert"
     "github.com/encodeering/wsl/glue/internal/config"
+    _ "github.com/encodeering/wsl/glue/test/cwd"
 )
 
 func TestExecOkay (t *testing.T) {
@@ -52,6 +53,23 @@ func TestExecParentEnv (t *testing.T) {
         assert.NoError (t, err)
         assert.Equal   (t, strings.Join (os.Environ (), "\n") + "\n", string (content))
         assert.True    (t, strings.Contains (string (content), "TESTVAR=42"))
+    })
+}
+
+func TestExecOkayEnvironment (t *testing.T) {
+    config, err := config.ObtainYaml ("./test/fixture/yaml/complete.yml")
+    assert.NoError (t, err)
+
+    capture (t, func (r io.Reader, w io.WriteCloser, _ io.Reader, _ io.WriteCloser) {
+        assert.Equal   (t, 0, NewProxy ("printenv", config).Exec ([]string{}))
+        assert.NoError (t, w.Close ())
+
+        content, err := ioutil.ReadAll (r)
+
+        assert.NoError (t, err)
+        assert.True    (t, strings.Contains (string (content), "ANSWER=42"))
+        assert.True    (t, strings.Contains (string (content), "LIFE=42"))
+        assert.True    (t, strings.Contains (string (content), "WSLENV=ANSWER/:LIFE/pu:"))
     })
 }
 
