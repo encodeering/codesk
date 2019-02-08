@@ -1,8 +1,12 @@
-.PHONY: build clean generate test setup
+.PHONY: all build clean generate test setup
+.DEFAULT_GOAL := all
 
 OUT := codesk.exe
 
+all: setup clean test build
+
 clean:
+	rm ${OUT} 2> /dev/null || true
 	packr2 clean
 
 generate:
