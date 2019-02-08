@@ -17,4 +17,4 @@ FROM       scratch
 
 ARG        TARGET
 
-COPY       --from=builder /usr/local/src/codesk-${TARGET}.exe .
+COPY       --from=builder /usr/local/src/${TARGET}.exe .

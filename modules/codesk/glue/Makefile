@@ -1,6 +1,6 @@
 .PHONY: build test
 
-OUT := codesk-$(TARGET).exe
+OUT := $(TARGET).exe
 
 test:
 	go test ./internal/...
