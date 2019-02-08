@@ -11,7 +11,7 @@ set -x -euo pipefail
     output="codesk-${target}.exe"
     tag="codesk-proxy:${target}"
 
-    docker build -t "${tag}" --build-arg TARGET="${target}" -
+    docker build -t "${tag}" --build-arg TARGET="${target}" 1>&2 -
 } > /dev/null
 
 cid=$(docker create "${tag}" true)
