@@ -14,8 +14,8 @@ set -x -euo pipefail
     docker build -t "${tag}" --build-arg TARGET="${target}" -
 } > /dev/null
 
-cid=$(docker create "${tag}")
-docker cp "${cid}:/usr/bin/${output}" - | tar xOf - "${output}"
+cid=$(docker create "${tag}" true)
+docker cp "${cid}:${output}" - | tar xOf - "${output}"
 
 {
     docker rm -v "${cid}" || true
