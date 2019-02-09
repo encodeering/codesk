@@ -3,7 +3,7 @@
 
 OUT := codesk.exe
 
-all: setup clean test build
+all: clean test build
 
 clean:
 	rm ${OUT} 2> /dev/null || true
@@ -19,6 +19,3 @@ test: generate
 
 build: generate
 	GOOS=windows GOARCH=amd64 GO111MODULE=on packr2 build -ldflags "-s -w" -o ${OUT}
-
-setup:
-	go get -u github.com/gobuffalo/packr/v2/packr2

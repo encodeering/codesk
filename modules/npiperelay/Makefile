@@ -1,4 +1,4 @@
-.PHONY: all build clean setup
+.PHONY: all build clean
 .DEFAULT_GOAL := all
 
 OUT := npiperelay.exe
@@ -9,7 +9,5 @@ clean:
 	rm ${OUT} 2> /dev/null || true
 
 build:
-	GOOS=windows GOARCH=amd64 go build -ldflags "-s -w" -o ${OUT} github.com/jstarks/npiperelay
-
-setup:
 	go get -d github.com/jstarks/npiperelay
+	GOOS=windows GOARCH=amd64 go build -ldflags "-s -w" -o ${OUT} github.com/jstarks/npiperelay
