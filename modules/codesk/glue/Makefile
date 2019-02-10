@@ -1,7 +1,7 @@
 .PHONY: all build clean test
 .DEFAULT_GOAL := all
 
-OUT := $(TARGET).exe
+OUT := $(shell basename $(TARGET)).exe
 
 all: clean test build
 

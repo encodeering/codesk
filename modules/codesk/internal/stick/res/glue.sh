@@ -8,8 +8,8 @@ set -x -euo pipefail
 
 {
     target="${1}"
-    output="${target}.exe"
-    tag="codesk-proxy:${target}"
+    output="$(basename ${target}).exe"
+    tag="codesk-proxy:${output}"
 
     docker build -t "${tag}" --build-arg TARGET="${target}" 1>&2 -
 } > /dev/null
