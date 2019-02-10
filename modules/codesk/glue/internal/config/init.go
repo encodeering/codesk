@@ -2,7 +2,6 @@ package config
 
 import (
     "os"
-    "os/user"
     "path/filepath"
     "strings"
     . "github.com/encodeering/wsl/glue/internal/util"
@@ -14,7 +13,7 @@ func Configuration () *Config {
     base := filepath.Base (arg0)
     ext  := filepath.Ext  (arg0)
 
-    homeyml, err := ObtainYaml (filepath.Join (Uhd (), "codesk.yml"))
+    codeskyml, err := ObtainYaml (filepath.Join (Pwd (), "codesk.yml"))
     Die (err)
 
     selfyml, err := ObtainYaml (filepath.Join (Pwd (), strings.TrimSuffix (base, ext) + ".yml"))
@@ -23,7 +22,7 @@ func Configuration () *Config {
     env, err := ObtainOS ("CODESK")
     Die (err)
 
-    return Combine (homeyml, selfyml, env)
+    return Combine (codeskyml, selfyml, env)
 }
 
 func Pwd () string {
@@ -34,11 +33,4 @@ func Pwd () string {
     Die (err)
 
     return filepath.Dir (path)
-}
-
-func Uhd () string {
-    user, err := user.Current ()
-    Die (err)
-
-    return user.HomeDir
 }
