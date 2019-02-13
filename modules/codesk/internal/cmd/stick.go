@@ -13,8 +13,23 @@ var gluestick = &cobra.Command {
     Use: `stick`,
     Short: `glues a binary that acts as a proxy between windows and linux over wsl.exe`,
     Run: func (_ *cobra.Command, args []string) {
-        Die (stick.New (stick.IoHandle (Target, os.Stdout)).Process ())
+        Die (stick.New (handle ()).Process ())
     },
+}
+
+func handle () stick.Handle {
+    if Out == "-" {
+        return stick.IoHandle (Target, os.Stdout)
+    }
+
+    if Out == "" {
+       Out = Target + ".exe"
+    }
+
+    out, err := os.Create (Out)
+    Die (err)
+
+    return stick.IoHandle (Target, out)
 }
 
 func init () {
