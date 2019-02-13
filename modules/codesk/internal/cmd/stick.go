@@ -7,6 +7,7 @@ import (
 )
 
 var Target string
+var Out string
 
 var gluestick = &cobra.Command {
     Use: `stick`,
@@ -20,5 +21,6 @@ func init () {
     root.AddCommand (gluestick)
 
     gluestick.Flags ().StringVarP (&Target, "target", "t", "", "targets this linux binary, either full-qualified or short")
+    gluestick.Flags ().StringVarP (&Out, "out", "o", "", "writes binary out to stdout or a file")
     gluestick.MarkFlagRequired ("target")
 }
