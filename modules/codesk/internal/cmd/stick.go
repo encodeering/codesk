@@ -1,6 +1,7 @@
 package cmd
 
 import (
+    "os"
     "github.com/encodeering/wsl/codesk/internal/stick"
     "github.com/spf13/cobra"
 )
@@ -11,7 +12,7 @@ var gluestick = &cobra.Command {
     Use: `stick`,
     Short: `glues a binary that acts as a proxy between windows and linux over wsl.exe`,
     Run: func (_ *cobra.Command, args []string) {
-        Die (stick.New (stick.StreamHandle (Target)).Process ())
+        Die (stick.New (stick.IoHandle (Target, os.Stdout)).Process ())
     },
 }
 
