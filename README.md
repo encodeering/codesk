@@ -1,4 +1,4 @@
-# Codesk [![Backer](https://img.shields.io/badge/backer-codesk-orange.svg?style=flat)](https://www.patreon.com/encodeering)
+# Codesk [![Backer](https://img.shields.io/badge/backer-codesk-orange.svg?style=flat)](https://www.patreon.com/encodeering) [![Build Status](https://travis-ci.org/encodeering/codesk.svg?branch=master)](https://travis-ci.org/encodeering/codesk)
 
 A desk to communicate with your wsl linux environment written in Go.
 
