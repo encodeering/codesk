@@ -1,5 +1,5 @@
 SUBDIRS := $(wildcard modules/*)
-TOPTARGETS := all clean
+TOPTARGETS := all clean setup
 
 .PHONY: $(TOPTARGETS) $(SUBDIRS)
 .DEFAULT_GOAL := all

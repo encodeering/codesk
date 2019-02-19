@@ -1,4 +1,4 @@
-.PHONY: all build clean test
+.PHONY: all build clean test setup
 .DEFAULT_GOAL := all
 
 OUT := $(shell basename $(TARGET)).exe
@@ -15,3 +15,6 @@ build:
 ifdef TARGET
 	GOOS=windows GOARCH=amd64 go build -ldflags "-s -w -X main.target=$(TARGET)" -o ${OUT}
 endif
+
+setup:
+	go get
