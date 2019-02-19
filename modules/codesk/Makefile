@@ -19,3 +19,8 @@ test: generate
 
 build: generate
 	GOOS=windows GOARCH=amd64 GO111MODULE=on packr2 build -ldflags "-s -w" -o ${OUT}
+
+setup:
+	$(MAKE) -C glue setup
+	go get -u github.com/gobuffalo/packr/v2/packr2
+	go get
