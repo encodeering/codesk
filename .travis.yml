@@ -11,3 +11,14 @@ install:
 
 script:
   - make
+
+deploy:
+  provider: releases
+  file: modules/**/*.exe
+  file_glob: true
+  skip_cleanup: true
+  api_key:
+    secure: "fAFPuDjxljKTXvItWulvHVYo2eYQ1mONAlHVHrGEVERYXV+RTI/dTnhbirVKcpjZLGYPcY8ur0P8ME6ak5fR8FRgF1EMOPrIhlISip+ES2stfFhVeUoCC3A9p3u9G2Pu1kqEosFJykesKNM9oyexbn4+PSNw6y10SDfYOAbrYboSWtmLqUkVNCL1Abpg1Fk+KvMJaJF6JxwCZMDA8OMRTuChb8s+4yoddoHSZcywGG03JVh+SHWfs99iLKMQyHckzZw00I2SpDfZMtWVKrNk0G6wCsuZPLBNYh2eWyykd4LytFCMcUeea1lZ9ugidnsgIV+h7XignMiG2Je7sFHdSf0nmhDQmSLNlJWUfoIZND/yt/hGWjzo/z0kOuopZdvPzkoOx7XERTDggUkIFCKA7dIxZ1Ta/T6szryRU9N7LPAqXon8KpTOsRRxSRVDLbPnmtMCIdWw+3VJpbaQoRqsbE4HaeDQljzZCqzvWH2E5HC/K2U+WaNr9nPL1xj+t8OcL8Q5Zbt5/QyIW7n30N5vpaddK4SxJvuFimUWFOnAjwqwnYJ7JmX6SeQ3T/6uZxNRBa3Rn/ak3A+nlNycmG1zvP1KqOaNBbmbnw/KdJ86H3Q4b/X+I+oEJ/Os+vTyVcP378n3rduIpLkoPhCIO9zgzPl2TQfDpBSYTy9mCusPYls="
+  on:
+    tags: true
+    repo: encodeering/codesk
