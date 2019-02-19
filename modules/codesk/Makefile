@@ -14,7 +14,7 @@ generate:
 	GO111MODULE=on packr2
 
 test: generate
-	$(MAKE) -C glue
+	$(MAKE) -C glue test
 	go test ./internal/...
 
 build: generate
